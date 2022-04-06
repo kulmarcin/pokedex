@@ -1,0 +1,40 @@
+@import '../../globals';
+
+.Element {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 2px solid $fourth;
+  width: 15rem;
+  height: 7.5rem;
+  margin: 0.5rem 0.5rem;
+  box-shadow: 5px 0px 10px $third;
+  cursor: pointer;
+
+  img {
+    cursor: inherit;
+  }
+
+  .Desc {
+    width: 50%;
+  }
+
+  .Name {
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .Type {
+    cursor: pointer;
+    font-size: 0.7rem;
+  }
+
+  .Height {
+    font-weight: normal;
+    cursor: pointer;
+  }
+  .Weight {
+    font-size: 1rem;
+    cursor: pointer;
+  }
+}

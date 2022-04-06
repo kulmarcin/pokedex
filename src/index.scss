@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import './globals';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  cursor: default;
+  user-select: none;
+}
+
+body {
+  background: $main;
+  background: -webkit-linear-gradient(
+    to right,
+    $secondary,
+    $main
+  ); 
+  background: linear-gradient(
+    to right,
+    $secondary,
+    $main
+  );
+}
