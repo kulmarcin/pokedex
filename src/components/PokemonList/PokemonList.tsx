@@ -92,7 +92,7 @@ export default function PokemonList() {
   };
 
   const handleBack = () => {
-    setError([])
+    setError([]);
     setUserSearch(false);
     window.location.reload();
   };
@@ -104,7 +104,7 @@ export default function PokemonList() {
   const handleSendQuery = () => {
     setLoading(true);
     dispatch(clear());
-    setError([])
+    setError([]);
 
     fetch(`https://pokeapi.co/api/v2/type/${query.toLowerCase()}`)
       .then(data => data.json())
@@ -169,15 +169,6 @@ export default function PokemonList() {
       </button>
 
       {userSearch && (
-        <button
-          className={theme === 'light' ? styles.Back : styles['Back--dark']}
-          onClick={handleBack}
-        >
-          Go Back
-        </button>
-      )}
-
-      {error.length === 2 && (
         <button
           className={theme === 'light' ? styles.Back : styles['Back--dark']}
           onClick={handleBack}
