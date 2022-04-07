@@ -26,20 +26,20 @@ export const pokemonsSlice = createSlice({
       return state;
     },
     findOne: (state, action: PayloadAction<Pokemon>) => {
-      state.push(action.payload)
-      return state
+      state.push(action.payload);
+      return state;
     },
-    findByType: (state,action:PayloadAction<Pokemon>) => {
-      state.push(action.payload)
-      return state
+    findByType: (state, action: PayloadAction<Pokemon>) => {
+      state.push(action.payload);
+      return state;
     },
-    clear: (state) => {
-      state = []
-      return state
+    clear: state => {
+      state = [];
+      return state;
     }
   }
 });
 
-export const { push, sort, findOne, findByType,clear } = pokemonsSlice.actions;
+export const { push, sort, findOne, findByType, clear } = pokemonsSlice.actions;
 export const selectPokemons = (state: RootState) => state.pokemons;
 export default pokemonsSlice.reducer;

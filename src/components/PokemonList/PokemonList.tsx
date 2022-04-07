@@ -11,16 +11,13 @@ import {
   clear
 } from './PokemonSlice';
 import { goNext, next, selectUrls } from './UrlSlice';
+import { selectTheme } from '../../components/Theme/ThemeSlice';
 
 import Pokemon from '../Pokemon/Pokemon';
 
 interface firstFetch {
   name: string;
   url: string;
-}
-
-interface typeFetch {
-  pokemon: { name: string; url: string };
 }
 
 interface secondFetch {
@@ -34,9 +31,14 @@ interface secondFetch {
   id: number;
 }
 
+interface typeFetch {
+  pokemon: { name: string; url: string };
+}
+
 export default function PokemonList() {
   const pokemons = useAppSelector(selectPokemons);
   const urls = useAppSelector(selectUrls);
+  const theme = useAppSelector(selectTheme);
   const dispatch = useAppDispatch();
 
   const [currentUrl, setCurrentUrl] = useState(urls.current);
@@ -148,7 +150,7 @@ export default function PokemonList() {
   return (
     <div>
       <input
-        className={styles.Input}
+        className={theme === 'light' ? styles.Input : styles['Input--dark']}
         type="text"
         placeholder="Enter type or name"
         onChange={handleChange}
@@ -158,18 +160,27 @@ export default function PokemonList() {
           }
         }}
       />
-      <button className={styles.Search} onClick={handleSendQuery}>
+      <button
+        className={theme === 'light' ? styles.Search : styles['Search--dark']}
+        onClick={handleSendQuery}
+      >
         Search
       </button>
 
       {userSearch && (
-        <button className={styles.Back} onClick={handleBack}>
+        <button
+          className={theme === 'light' ? styles.Back : styles['Back--dark']}
+          onClick={handleBack}
+        >
           Go Back
         </button>
       )}
 
       {error.length === 2 && (
-        <button className={styles.Back} onClick={handleBack}>
+        <button
+          className={theme === 'light' ? styles.Back : styles['Back--dark']}
+          onClick={handleBack}
+        >
           Go Back
         </button>
       )}
@@ -191,8 +202,16 @@ export default function PokemonList() {
         })}
 
         {loading && (
-          <div className={styles.Element}>
-            <div className={styles.ldsring}>
+          <div
+            className={
+              theme === 'light' ? styles.Element : styles['Element--dark']
+            }
+          >
+            <div
+              className={
+                theme === 'light' ? styles.ldsring : styles['ldsring--dark']
+              }
+            >
               <div></div>
               <div></div>
               <div></div>
@@ -202,7 +221,12 @@ export default function PokemonList() {
         )}
 
         {!loading && !userSearch && error.length === 0 && (
-          <div className={styles.Button} onClick={handleNext}>
+          <div
+            className={
+              theme === 'light' ? styles.Button : styles['Button--dark']
+            }
+            onClick={handleNext}
+          >
             Load more
           </div>
         )}

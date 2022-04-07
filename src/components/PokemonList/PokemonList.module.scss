@@ -59,7 +59,7 @@
   padding: 0.5rem;
   margin-top: 1rem;
   border: 2px solid $fourth;
-  color:$text;
+  color: $text;
   transition: background-color 0.5s, box-shadow 0.5s;
 
   &::placeholder {
@@ -82,8 +82,8 @@
   background-color: $third;
   border: 2px solid $fourth;
   border-radius: 25px;
-  height:2.3rem;
-  width:4.7rem;
+  height: 2.3rem;
+  width: 4.7rem;
   cursor: pointer;
   transition: background-color 0.25s, box-shadow 0.25s, color 0.25s;
 
@@ -103,6 +103,91 @@
   &:hover {
     background-color: $darkred;
     box-shadow: 3px 0px 15px $darkred;
+  }
+}
 
+.Input--dark {
+  @extend .Input;
+  border: 2px solid $fourth--dark;
+  color: $text--dark;
+  background-color: black;
+
+  &::placeholder {
+    text-align: center;
+    color: white;
+  }
+
+  &:focus {
+    background-color: $main--dark;
+    box-shadow: 5px 0px 5px $third--dark;
+  }
+
+  &:hover {
+    background-color: $main--dark;
+    box-shadow: 3px 0px 30px $fourth--dark;
+  }
+}
+
+.Search--dark {
+  @extend .Search;
+  background-color: $third--dark;
+  border: 2px solid $fourth--dark;
+
+  &:hover {
+    color: $main--dark;
+    background-color: $fourth--dark;
+    box-shadow: 3px 0px 15px $fourth--dark;
+  }
+}
+
+.Back--dark {
+  @extend .Search--dark;
+  background-color: $darkred--dark;
+  color: black;
+  border: 2px solid #894343;
+
+  &:hover {
+    background-color: $darkred;
+    box-shadow: 3px 0px 15px $darkred;
+  }
+}
+
+.Button--dark {
+  @extend .Element--dark;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.ldsring--dark {
+  @extend .ldsring;
+}
+
+.ldsring--dark div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid $text--dark;
+  border-radius: 50%;
+  animation: ldsring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: $text--dark transparent transparent transparent;
+}
+.ldsring--dark div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.ldsring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.ldsring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes ldsring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
