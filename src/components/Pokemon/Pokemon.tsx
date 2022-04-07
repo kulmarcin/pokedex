@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import styles from './Pokemon.module.scss';
 
+import { useAppSelector } from '../../app/hooks';
+import { selectTheme } from '../../components/Theme/ThemeSlice';
+
 interface Props {
   sprite: string;
   name: string;
@@ -10,27 +13,36 @@ interface Props {
 }
 
 export default function Pokemon({ sprite, name, type, height, weight }: Props) {
+  const theme = useAppSelector(selectTheme);
+
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
     setClicked(prevState => !prevState);
   };
 
+  const class1 = theme === 'light' ? styles.Desc : styles['Desc--dark'];
+  const class2 = theme === 'light' ? styles.Name : styles['Name--dark'];
+  const class3 = theme === 'light' ? styles.Type : styles['Type--dark'];
+
   return (
-    <div className={styles.Element} onClick={handleClick}>
+    <div
+      className={theme === 'light' ? styles.Element : styles['Element--dark']}
+      onClick={handleClick}
+    >
       <img src={sprite} alt="sprite" />
 
       {!clicked && (
-        <div className={styles.Desc}>
-          <p className={styles.Name}>{name.toUpperCase()}</p>
-          <p className={styles.Type}>{type.join('/')}</p>
+        <div className={class1}>
+          <p className={class2}>{name.toUpperCase()}</p>
+          <p className={class3}>{type.join('/')}</p>
         </div>
       )}
 
       {clicked && (
-        <div className={styles.Desc}>
-          <p className={styles.Height}>Height: {height / 10}m</p>
-          <p className={styles.Weight}>Weight: {weight / 10}kg</p>
+        <div className={class1}>
+          <p className={class2}>Height: {height / 10}m</p>
+          <p className={class3}>Weight: {weight / 10}kg</p>
         </div>
       )}
     </div>

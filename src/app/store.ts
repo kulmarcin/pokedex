@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import pokemonReducer from '../components/PokemonList/PokemonSlice';
 import urlsReducer from '../components/PokemonList/UrlSlice';
+import themeReducer from '../components/Theme/ThemeSlice';
 
 export const store = configureStore({
   reducer: {
     pokemons: pokemonReducer,
-    urls: urlsReducer
+    urls: urlsReducer,
+    theme: themeReducer
   }
 });
 

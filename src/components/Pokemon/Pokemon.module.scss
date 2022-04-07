@@ -48,6 +48,42 @@
   }
 }
 
+.Element--dark {
+  @extend .Element;
+  border: 2px solid $fourth--dark;
+  box-shadow: 5px 0px 10px $secondary--dark;
+  color: $text--dark;
+
+  .Name--dark {
+    font-weight: bold;
+    color: $text--dark;
+  }
+  .Desc--dark {
+    color: $text--dark;
+    width: 50%;
+    animation: showUp 0.25s;
+  }
+  .Type--dark {
+    cursor: pointer;
+    font-size: 0.7rem;
+    color: $text--dark;
+  }
+  &:hover {
+    box-shadow: 5px 25px 15px $secondary--dark;
+    transform: translateY(-15px);
+
+    img {
+      cursor: inherit;
+    }
+
+    .Name--dark {
+      font-weight: bold;
+      cursor: pointer;
+      color: $secondary;
+    }
+  }
+}
+
 @keyframes showUp {
   from {
     opacity: 0;
