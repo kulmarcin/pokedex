@@ -10,6 +10,16 @@
   margin: 0.5rem 0.5rem;
   box-shadow: 5px 0px 10px $third;
   cursor: pointer;
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+
+  &:hover {
+    box-shadow: 5px 25px 5px $third;
+    transform: translateY(-15px);
+
+    .Name {
+      color: $fourth;
+    }
+  }
 
   img {
     cursor: inherit;
@@ -17,6 +27,7 @@
 
   .Desc {
     width: 50%;
+    animation: showUp 0.25s;
   }
 
   .Name {
@@ -30,11 +41,18 @@
   }
 
   .Height {
-    font-weight: normal;
     cursor: pointer;
   }
   .Weight {
-    font-size: 1rem;
-    cursor: pointer;
+    @extend .Height;
+  }
+}
+
+@keyframes showUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
