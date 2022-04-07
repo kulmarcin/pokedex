@@ -29,10 +29,10 @@
   width: 64px;
   height: 64px;
   margin: 8px;
-  border: 8px solid #fff;
+  border: 8px solid $text;
   border-radius: 50%;
   animation: ldsring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
+  border-color: $text transparent transparent transparent;
 }
 .ldsring div:nth-child(1) {
   animation-delay: -0.45s;
@@ -49,5 +49,60 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.Input {
+  outline: none;
+  cursor: pointer;
+  border-radius: 15px;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: 2px solid $fourth;
+  color:$text;
+  transition: background-color 0.5s, box-shadow 0.5s;
+
+  &::placeholder {
+    text-align: center;
+  }
+
+  &:focus {
+    background-color: $main;
+    box-shadow: 5px 0px 5px $third;
+  }
+
+  &:hover {
+    background-color: $main;
+    box-shadow: 3px 0px 30px $fourth;
+  }
+}
+
+.Search {
+  margin: 0.5rem;
+  background-color: $third;
+  border: 2px solid $fourth;
+  border-radius: 25px;
+  height:2.3rem;
+  width:4.7rem;
+  cursor: pointer;
+  transition: background-color 0.25s, box-shadow 0.25s, color 0.25s;
+
+  &:hover {
+    color: $main;
+    background-color: $fourth;
+    box-shadow: 3px 0px 15px $fourth;
+  }
+}
+
+.Back {
+  @extend .Search;
+  background-color: $darkred;
+  color: white;
+  border: 2px solid #894343;
+
+  &:hover {
+    background-color: $darkred;
+    box-shadow: 3px 0px 15px $darkred;
+
   }
 }

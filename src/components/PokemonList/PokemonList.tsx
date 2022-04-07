@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react';
 import styles from './PokemonList.module.scss';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { push, selectPokemons, sort } from './PokemonSlice';
+import {
+  push,
+  selectPokemons,
+  sort,
+  findOne,
+  findByType,
+  clear
+} from './PokemonSlice';
 import { goNext, next, selectUrls } from './UrlSlice';
 
 import Pokemon from '../Pokemon/Pokemon';
@@ -10,6 +17,10 @@ import Pokemon from '../Pokemon/Pokemon';
 interface firstFetch {
   name: string;
   url: string;
+}
+
+interface typeFetch {
+  pokemon: { name: string; url: string };
 }
 
 interface secondFetch {
@@ -29,8 +40,11 @@ export default function PokemonList() {
   const dispatch = useAppDispatch();
 
   const [currentUrl, setCurrentUrl] = useState(urls.current);
-
+  const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<[] | string[]>([]);
+  const [userSearch, setUserSearch] = useState(false);
+
   useEffect(() => {
     setCurrentUrl(urls.current);
   }, [urls]);
@@ -75,34 +89,124 @@ export default function PokemonList() {
     dispatch(goNext());
   };
 
+  const handleBack = () => {
+    setUserSearch(false);
+    window.location.reload();
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError([]);
+    setQuery(e.target.value);
+  };
+
+  const handleSendQuery = () => {
+    setLoading(true);
+    dispatch(clear());
+
+    fetch(`https://pokeapi.co/api/v2/type/${query}`)
+      .then(data => data.json())
+      .then(data => {
+        data.pokemon.forEach((el: typeFetch) => {
+          let url = el.pokemon.url;
+          fetch(url)
+            .then(data => data.json())
+            .then((data: secondFetch) => {
+              const obj = {
+                name: data.name,
+                type: data.types.map(el => el.type.name),
+                sprite: data.sprites.front_default,
+                height: data.height,
+                weight: data.weight,
+                id: data.id
+              };
+              setUserSearch(true);
+              dispatch(findByType(obj));
+            });
+        });
+      })
+      .catch(err => setError(prevState => [...prevState, 'Type Not Found!']))
+      .then(() => setLoading(false));
+
+    fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
+      .then(data => data.json())
+      .then(data => {
+        const obj = {
+          name: data.name,
+          type: data.types.map((el: any) => el.type.name),
+          sprite: data.sprites.front_default,
+          height: data.height,
+          weight: data.weight,
+          id: data.id
+        };
+        setUserSearch(true);
+        dispatch(findOne(obj));
+      })
+      .catch(err => setError(prevState => [...prevState, 'Name Not Found!']))
+      .then(() => setLoading(false));
+  };
+
   return (
-    <div className={styles.PokemonList}>
-      {pokemons.map(el => {
-        return (
-          <Pokemon
-            id={el.id}
-            sprite={el.sprite}
-            name={el.name}
-            type={el.type}
-            height={el.height}
-            weight={el.weight}
-          />
-        );
-      })}
-      {loading ? (
-        <div className={styles.Element}>
-          <div className={styles.ldsring}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      ) : (
-        <div className={styles.Button} onClick={handleNext}>
-          Load more
-        </div>
+    <div>
+      <input
+        className={styles.Input}
+        type="text"
+        placeholder="Enter type or name"
+        onChange={handleChange}
+        onKeyDownCapture={e => {
+          if (e.key === 'Enter') {
+            handleSendQuery();
+          }
+        }}
+      />
+      <button className={styles.Search} onClick={handleSendQuery}>
+        Search
+      </button>
+
+      {userSearch && (
+        <button className={styles.Back} onClick={handleBack}>
+          Go Back
+        </button>
       )}
+
+      {error.length === 2 && (
+        <button className={styles.Back} onClick={handleBack}>
+          Go Back
+        </button>
+      )}
+
+      {error.length === 2 &&
+        error.map(el => <p style={{ color: 'red' }}>{el}</p>)}
+      <div className={styles.PokemonList}>
+        {pokemons.map(el => {
+          return (
+            <Pokemon
+              key={el.id}
+              sprite={el.sprite}
+              name={el.name}
+              type={el.type}
+              height={el.height}
+              weight={el.weight}
+            />
+          );
+        })}
+
+        {loading && (
+          <div className={styles.Element}>
+            <div className={styles.ldsring}>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        )}
+
+        {!loading && !userSearch && error.length === 0 && (
+          <div className={styles.Button} onClick={handleNext}>
+            Load more
+          </div>
+        )}
+      </div>
     </div>
   );
 }

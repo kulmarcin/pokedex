@@ -21,14 +21,25 @@ export const pokemonsSlice = createSlice({
     },
     sort: state => {
       state.sort((a, b) => {
-        console.log(a, b);
         return a.id - b.id;
       });
       return state;
+    },
+    findOne: (state, action: PayloadAction<Pokemon>) => {
+      state.push(action.payload)
+      return state
+    },
+    findByType: (state,action:PayloadAction<Pokemon>) => {
+      state.push(action.payload)
+      return state
+    },
+    clear: (state) => {
+      state = []
+      return state
     }
   }
 });
 
-export const { push, sort } = pokemonsSlice.actions;
+export const { push, sort, findOne, findByType,clear } = pokemonsSlice.actions;
 export const selectPokemons = (state: RootState) => state.pokemons;
 export default pokemonsSlice.reducer;
