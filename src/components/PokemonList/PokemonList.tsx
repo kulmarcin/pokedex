@@ -104,6 +104,7 @@ export default function PokemonList() {
   const handleSendQuery = () => {
     setLoading(true);
     dispatch(clear());
+    setError([])
 
     fetch(`https://pokeapi.co/api/v2/type/${query.toLowerCase()}`)
       .then(data => data.json())
