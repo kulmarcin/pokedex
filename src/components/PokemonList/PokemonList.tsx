@@ -92,12 +92,12 @@ export default function PokemonList() {
   };
 
   const handleBack = () => {
+    setError([])
     setUserSearch(false);
     window.location.reload();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError([]);
     setQuery(e.target.value);
   };
 
@@ -105,7 +105,7 @@ export default function PokemonList() {
     setLoading(true);
     dispatch(clear());
 
-    fetch(`https://pokeapi.co/api/v2/type/${query}`)
+    fetch(`https://pokeapi.co/api/v2/type/${query.toLowerCase()}`)
       .then(data => data.json())
       .then(data => {
         data.pokemon.forEach((el: typeFetch) => {
@@ -129,7 +129,7 @@ export default function PokemonList() {
       .catch(err => setError(prevState => [...prevState, 'Type Not Found!']))
       .then(() => setLoading(false));
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`)
       .then(data => data.json())
       .then(data => {
         const obj = {
