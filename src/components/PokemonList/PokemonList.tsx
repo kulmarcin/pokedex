@@ -98,6 +98,7 @@ export default function PokemonList() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError([])
     setQuery(e.target.value);
   };
 
