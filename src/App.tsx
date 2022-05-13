@@ -11,7 +11,7 @@ function App() {
   const handleTheme = () => {
     dispatch(changeTheme());
   };
-
+  
   return (
     <div className={theme === 'light' ? styles.App : styles['App--dark']}>
       <h1>PokeDex</h1>
