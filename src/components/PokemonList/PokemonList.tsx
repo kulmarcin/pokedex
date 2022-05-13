@@ -98,7 +98,7 @@ export default function PokemonList() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setError([])
+    setError([]);
     setQuery(e.target.value);
   };
 
@@ -163,6 +163,7 @@ export default function PokemonList() {
         }}
       />
       <button
+        disabled={query.length > 0 ? false : true}
         className={theme === 'light' ? styles.Search : styles['Search--dark']}
         onClick={handleSendQuery}
       >

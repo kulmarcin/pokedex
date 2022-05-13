@@ -95,6 +95,11 @@
     background-color: $fourth;
     box-shadow: 3px 0px 15px $fourth;
   }
+
+  &:disabled {
+    opacity: 50%;
+    pointer-events: none;
+  }
 }
 
 .Back {
